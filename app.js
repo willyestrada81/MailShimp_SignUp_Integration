@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
@@ -17,10 +18,6 @@ app.post("/", (req, res) => {
   let lastName = req.body.lastName;
   let email = req.body.email;
 
-  console.log(firstName);
-  console.log(lastName);
-  console.log(email);
-
   let data = {
     members: [
       {
@@ -34,15 +31,17 @@ app.post("/", (req, res) => {
     ]
   };
   let jsonData = JSON.stringify(data);
+  const API = process.env.mailChimp_API;
 
   let options = {
     url: "https://us18.api.mailchimp.com/3.0/lists/14d033e39c",
     method: "post",
     headers: {
-      Authorization: "William 226e246f6e9d403895638ece994a2b0e-us18"
+      Authorization: `William ${API}`
     },
     body: jsonData
   };
+ 
   request(options, (error, response, body) => {
     if (error) {
       res.sendFile(__dirname + "/failure.html");
