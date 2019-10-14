@@ -7,10 +7,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public")); //Require to serve static files (StyleSheets, Images, ETC..)
+app.use(express.static("dist")); //Require to serve static files (StyleSheets, Images, ETC..)
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/signup.html");
+  res.sendFile(__dirname + "/dist/signup.html");
 });
 
 app.post("/", (req, res) => {
@@ -45,13 +45,13 @@ app.post("/", (req, res) => {
  
   request(options, (error, response, body) => {
     if (error) {
-      res.sendFile(__dirname + "/failure.html");
+      res.sendFile(__dirname + "/dist/failure.html");
       console.log(error);
     } else if (response.statusCode == 200) {
-      res.sendFile(__dirname + "/success.html");
+      res.sendFile(__dirname + "/dist/success.html");
       console.log(response.statusCode);
     } else {
-      res.sendFile(__dirname + "/failure.html");
+      res.sendFile(__dirname + "/dist/failure.html");
     }
   });
 });
