@@ -5,42 +5,33 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Lint
-    task:
-      prologue:
-        commands:
-          - checkout
-      jobs:
-        - name: make lint
-          commands:
-            - echo "lint your code"
   - name: Install dependencies
     task:
-      prologue:
-        commands:
-          - checkout
-          - nvm use
       env_vars:
         - name: NODE_ENV
           value: test
+     prologue:
+        commands:
+          - checkout
+          - nvm use
       jobs:
         - name: npm install and cache
           commands:
             - cache restore
             - npm install
             - cache store
-  - name: Unit tests
+  - name: Tests
     task:
+      env_vars:
+        - name: NODE_ENV
+          value: test
       prologue:
         commands:
           - checkout
+          - nvm use
+          - cache restore 
       jobs:
-        - name: Unit tests 1/3
+        - name: Static test
           commands:
-            - echo "run 1/3"
-        - name: Unit tests 2/3
-          commands:
-            - echo "run 2/3"
-        - name: Unit tests 3/3
-          commands:
-            - echo "run 3/3"
+            - npm run lint
+  
