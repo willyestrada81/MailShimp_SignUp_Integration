@@ -10,7 +10,10 @@ blocks:
       env_vars:
         - name: NODE_ENV
           value: test
-      jobs: []
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - npm run start
     prologue:
       commands:
         - checkout
