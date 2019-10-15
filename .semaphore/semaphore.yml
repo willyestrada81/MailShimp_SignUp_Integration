@@ -10,16 +10,17 @@ blocks:
       env_vars:
         - name: NODE_ENV
           value: test
+      jobs: []
     prologue:
+      commands:
+        - checkout
+        - nvm use
+    jobs:
+      - name: npm install and cache
         commands:
-          - checkout
-          - nvm use
-     jobs:
-        - name: npm install and cache
-          commands:
-            - cache restore
-            - npm install
-            - cache store
+          - cache restore
+          - npm install
+          - cache store
   - name: Tests
     task:
       env_vars:
@@ -29,9 +30,8 @@ blocks:
         commands:
           - checkout
           - nvm use
-          - cache restore 
+          - cache restore
       jobs:
         - name: Static test
           commands:
             - npm run lint
-  
