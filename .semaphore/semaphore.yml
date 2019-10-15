@@ -10,11 +10,11 @@ blocks:
       env_vars:
         - name: NODE_ENV
           value: test
-     prologue:
+    prologue:
         commands:
           - checkout
           - nvm use
-      jobs:
+     jobs:
         - name: npm install and cache
           commands:
             - cache restore
