@@ -535,7 +535,7 @@ main {
 .site-footer {
     position: relative;
     background: #0B0D19;
-    height: 100vh
+    height: 100%;
 }
 
 .site-footer::before {
